@@ -1,6 +1,6 @@
 const allowedOrigins = [
     process.env.CLIENT_URL || 'http://localhost:3000',
-    'https://bavondev-back.onrender.com',
+    'https://bavon-dev.vercel.app/',
 ];
 
 const corsConfig = {
