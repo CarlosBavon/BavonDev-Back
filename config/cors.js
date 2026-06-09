@@ -2,6 +2,7 @@ const allowedOrigins = [
     process.env.CLIENT_URL || 'http://localhost:3000',
     'https://bavdev.xyz',
     'https://www.bavdev.xyz',
+    'https://bavondev-back.onrender.com',
 ];
 
 const corsConfig = {
