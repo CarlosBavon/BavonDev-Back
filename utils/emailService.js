@@ -48,21 +48,25 @@ exports.sendContactNotification = async (contact) => {
   );
 };
 
-exports.sendBookingConfirmation = async (booking) => {
+exports.sendBookingAdminNotification = async (booking) => {
   await sendEmail(
-    booking.email,
-    booking.name,
-    'Booking Request Received - BavDev',
+    process.env.ADMIN_EMAIL,
+    'BavDev Admin',
+    `New Booking: ${booking.name} - ${booking.service || 'Booking Request'}`,
     `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2>Booking Request Received</h2>
-        <p>Hi ${booking.name},</p>
-        <p>Thank you for booking a consultation with BavDev. We have received your request and will confirm the meeting details shortly.</p>
+        <h2 style="border-bottom: 2px solid #000; padding-bottom: 10px;">New Booking Request</h2>
+        <p><strong>Name:</strong> ${booking.name}</p>
+        <p><strong>Email:</strong> ${booking.email}</p>
+        <p><strong>Phone:</strong> ${booking.phone || 'N/A'}</p>
         <p><strong>Service:</strong> ${booking.service}</p>
         <p><strong>Preferred Date:</strong> ${booking.preferredDate || 'Flexible'}</p>
-        <p>We'll be in touch soon!</p>
+        <p><strong>Preferred Time:</strong> ${booking.preferredTime || 'Flexible'}</p>
+        <p><strong>Meeting Type:</strong> ${booking.meetingType || 'Google Meet'}</p>
+        <p><strong>Message:</strong></p>
+        <p>${booking.message || 'No additional message'}</p>
         <hr />
-        <p style="color: #666;">BavDev - Full Stack Development</p>
+        <p style="color: #666;">Manage bookings in the <a href="${process.env.CLIENT_URL || 'http://localhost:3000'}/admin/bookings">Admin Dashboard</a></p>
       </div>
     `
   );

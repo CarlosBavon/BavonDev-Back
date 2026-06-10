@@ -1,12 +1,16 @@
 const Booking = require('../models/Booking');
-const { sendBookingConfirmation } = require('../utils/emailService');
+const { sendBookingConfirmation, sendBookingAdminNotification } = require('../utils/emailService');
 
 exports.createBooking = async (req, res, next) => {
     try {
         const booking = await Booking.create(req.body);
-        // Send confirmation email asynchronously
+        // Send confirmation to client
         sendBookingConfirmation(booking).catch((err) =>
-            console.error('[EMAIL] Booking confirmation failed:', err.message)
+            console.error('[EMAIL] Client confirmation failed:', err.message)
+        );
+        // Send notification to admin
+        sendBookingAdminNotification(booking).catch((err) =>
+            console.error('[EMAIL] Admin notification failed:', err.message)
         );
         res.status(201).json({
             success: true,
