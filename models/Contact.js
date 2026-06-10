@@ -36,7 +36,14 @@ const contactSchema = new mongoose.Schema(
         },
         budget: {
             type: String,
-            enum: ['Under Ksh.30,000', 'Ksh.30,000 - Ksh.50,000', 'Ksh.50,000 - Ksh.100,000', 'Ksh.100,000 - Ksh.200,000', 'Ksh.200,000+', 'Not Sure'],
+            enum: [
+                'Under Ksh.30,000',
+                'Ksh.30,000 - Ksh.50,000',
+                'Ksh.50,000 - Ksh.100,000',
+                'Ksh.100,000 - Ksh.200,000',
+                'Ksh.200,000+',
+                'Not Sure'
+            ],
         },
         message: {
             type: String,
