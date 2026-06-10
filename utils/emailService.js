@@ -27,6 +27,7 @@ const sendEmail = async (toEmail, toName, subject, htmlContent) => {
   }
 };
 
+// 1. Admin notification when someone submits the contact form
 exports.sendContactNotification = async (contact) => {
   await sendEmail(
     process.env.ADMIN_EMAIL,
@@ -48,6 +49,28 @@ exports.sendContactNotification = async (contact) => {
   );
 };
 
+// 2. Client confirmation when they book a call
+exports.sendBookingConfirmation = async (booking) => {
+  await sendEmail(
+    booking.email,
+    booking.name,
+    'Booking Request Received - BavDev',
+    `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2>Booking Request Received</h2>
+        <p>Hi ${booking.name},</p>
+        <p>Thank you for booking a consultation with BavDev. We have received your request and will confirm the meeting details shortly.</p>
+        <p><strong>Service:</strong> ${booking.service}</p>
+        <p><strong>Preferred Date:</strong> ${booking.preferredDate || 'Flexible'}</p>
+        <p>We'll be in touch soon!</p>
+        <hr />
+        <p style="color: #666;">BavDev - Full Stack Development</p>
+      </div>
+    `
+  );
+};
+
+// 3. Admin notification when someone books a call
 exports.sendBookingAdminNotification = async (booking) => {
   await sendEmail(
     process.env.ADMIN_EMAIL,
