@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const helmet = require('helmet');
 const cors = require('cors');
 const compression = require('compression');
@@ -19,6 +20,7 @@ const bookingRoutes = require('./routes/bookingRoutes');
 const newsletterRoutes = require('./routes/newsletterRoutes');
 const testimonialRoutes = require('./routes/testimonialRoutes');
 const githubRoutes = require('./routes/githubRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 const app = express();
 
@@ -39,10 +41,13 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
-// Rate Limiting
+// Rate Limiting (disabled for development)
 //app.use('/api/', rateLimit.generalLimiter);
 //app.use('/api/auth/login', rateLimit.authLimiter);
 //app.use('/api/contact', rateLimit.contactLimiter);
+
+// Serve uploaded images statically
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));  // ← added
 
 // Routes
 app.use('/health', healthRoutes);
@@ -54,6 +59,7 @@ app.use('/api/bookings', bookingRoutes);
 app.use('/api/newsletter', newsletterRoutes);
 app.use('/api/testimonials', testimonialRoutes);
 app.use('/api/github', githubRoutes);
+app.use('/api/upload', uploadRoutes);  // ← added
 
 // 404 Handler
 app.all('*', (req, res) => {
