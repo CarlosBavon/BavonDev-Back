@@ -21,6 +21,7 @@ const newsletterRoutes = require('./routes/newsletterRoutes');
 const testimonialRoutes = require('./routes/testimonialRoutes');
 const githubRoutes = require('./routes/githubRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
+const sitemapRoutes = require('./routes/sitemapRoutes');
 
 const app = express();
 
@@ -59,7 +60,8 @@ app.use('/api/bookings', bookingRoutes);
 app.use('/api/newsletter', newsletterRoutes);
 app.use('/api/testimonials', testimonialRoutes);
 app.use('/api/github', githubRoutes);
-app.use('/api/upload', uploadRoutes);  // ← added
+app.use('/api/upload', uploadRoutes);
+app.use(sitemapRoutes);
 
 // 404 Handler
 app.all('*', (req, res) => {
