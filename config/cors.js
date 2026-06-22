@@ -1,5 +1,6 @@
 const allowedOrigins = [
     process.env.CLIENT_URL || 'http://localhost:3000',
+    'www.bavdev.xyz',
     'https://bavdev.xyz',
     'https://bavon-dev.vercel.app',
     'https://bavondev-back.onrender.com',
